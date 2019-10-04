@@ -78,7 +78,7 @@ function draw() {
     // current += constrain(radians(theta - current), -QUARTER_PI / 4, QUARTER_PI / 4);
     current += theta;
     theta *= .99
-    if (dangle < 0.001 && dangle > -0.001) dangle = 0;
+    if (theta < 0.001 && theta > -0.001) theta = 0;
     current %= TWO_PI;
 
 
