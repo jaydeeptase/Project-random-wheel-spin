@@ -32,9 +32,7 @@ function setup() {
 
   spinButton = createButton("Spin The Wheel").mousePressed(() => {
     if (!spinning) {
-      current = current % TWO_PI;
-      theta = Random.random(TWO_PI * 4, TWO_PI * 12)+random(-TWO_PI, 2*TWO_PI);
-      prevTheta = theta;
+      theta = random(.4, .5);
       if (random(1) > .5)
         theta *= -1;
     }
@@ -69,16 +67,20 @@ function draw() {
   noStroke();
   fill(255);
   strokeWeight(1);
-  if (mouseIsPressed && !spinning) {
+  if (mouseIsPressed) {
     if (mouse().mag() < size * 2) {
       current = angleLerp(current, mouse().heading() + (TWO_PI), .25);
       current %= TWO_PI;
+      theta = mouse().heading();
     }
 
-  } else if (spinning) {
-    // current += constrain(radians(theta - current), -QUARTER_PI / 4, QUARTER_PI / 4);
-    current = lerp(current, theta, .01);
   }
+    // current += constrain(radians(theta - current), -QUARTER_PI / 4, QUARTER_PI / 4);
+    current += theta;
+    theta *= .99
+    if (dangle < 0.001 && dangle > -0.001) dangle = 0;
+    current %= TWO_PI;
+
 
   if (similar(current, theta, .01)) {
     spinning = false;
