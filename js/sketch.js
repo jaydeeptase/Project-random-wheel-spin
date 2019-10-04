@@ -33,9 +33,12 @@ function setup() {
 
   spinButton = createButton("Spin The Wheel").mousePressed(() => {
     if (!spinning) {
-      theta += random(0.4, 0.5);
+      let force = random(0.4, 0.5);
+      
       if (random(1) > 0.5)
-        theta *= -1;
+        force *= -1;
+      
+      theta += force;
     }
     spinning = true;
   }).addClass("button").position(20, windowHeight - 40);
