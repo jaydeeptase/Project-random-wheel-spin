@@ -33,7 +33,7 @@ function setup() {
 
   spinButton = createButton("Spin The Wheel").mousePressed(() => {
     if (!spinning) {
-      theta = random(0.4, 0.5);
+      theta += random(0.4, 0.5);
       if (random(1) > 0.5)
         theta *= -1;
     }
@@ -92,12 +92,7 @@ function draw() {
   
   if (theta < 0.001 && theta > -0.001) {theta = 0; spinning = false}
   
-  if (current > TWO_PI) {
-    current -= TWO_PI;
-  }
-  if (current < 0) {
-    current += TWO_PI;
-  }
+  current %= TWO_PI;
 
 
   if (similar(current, theta, .01)) {
