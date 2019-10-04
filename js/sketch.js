@@ -18,14 +18,14 @@ const mouse = () => createVector(mouseX - width / 2, mouseY - height / 2);
 const pmouse = () => createVector(pmouseX - width / 2, pmouseY - height / 2);
 
 function preload() {
-  data = loadTable("contributions.csv", "header");
+  data = loadJSON("assets/data.json" (j)=>total=Number(j.length));
 }
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   size = (height * .8) / 4
-  total = 14; //data.rows.length;
+  //total = data.rows.length;
   numbers = [...Array(total).keys()].map(val => val + 1);
   sectionSize = (TWO_PI / total);
   current = random(TWO_PI);
