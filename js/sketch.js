@@ -42,7 +42,7 @@ function setup() {
     }
     spinning = true;
   }).addClass("button").position(20, windowHeight - 40);
-  removeButton = createButton("Remove Selected").mousePressed(() => {
+  removeButton = createButton("Remove and View Selected").mousePressed(() => {
     total--;
     // print(selectedIndex);
     (numbers.splice(selectedIndex, 1)[0]);
