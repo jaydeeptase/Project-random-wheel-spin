@@ -18,7 +18,7 @@ const mouse = () => createVector(mouseX - width / 2, mouseY - height / 2);
 const pmouse = () => createVector(pmouseX - width / 2, pmouseY - height / 2);
 
 function preload() {
-  data = loadJSON("assets/data.json", (j)=>total=Number(j.length));
+  data = loadJSON("assets/data.json", (j) => total = Number(j.length));
 }
 
 
