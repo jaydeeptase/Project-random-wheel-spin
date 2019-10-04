@@ -15,6 +15,7 @@ let numbers = [];
 let selectedIndex = 0;
 
 const mouse = () => createVector(mouseX - width / 2, mouseY - height / 2);
+const pmouse = () => createVector(pmouseX - width / 2, pmouseY - height / 2);
 
 function preload() {
   data = loadTable("contributions.csv", "header");
@@ -23,17 +24,17 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  size = (height*.8) / 4
-  total = 14;//data.rows.length;
-  numbers = [...Array(total).keys()].map(val => val+1);
+  size = (height * .8) / 4
+  total = 14; //data.rows.length;
+  numbers = [...Array(total).keys()].map(val => val + 1);
   sectionSize = (TWO_PI / total);
   current = random(TWO_PI);
-  theta = Random.random(TWO_PI, TWO_PI * 8) + current;
+  theta = 0
 
   spinButton = createButton("Spin The Wheel").mousePressed(() => {
     if (!spinning) {
-      theta = random(.4, .5);
-      if (random(1) > .5)
+      theta = random(0.4, 0.5);
+      if (random(1) > 0.5)
         theta *= -1;
     }
     spinning = true;
@@ -46,9 +47,19 @@ function setup() {
     loadColors();
   }).addClass("button").position(20, windowHeight - 70);;
   CCDIV = createDiv("copy of <a href = 'http://shiffman.github.io/randomizer/spin/index.html?id=-Lpud6LpelY04t5yqzny' target=_blank>Class Randomizer</a> by Dan Shiffman")
-    CCDIV.position(windowWidth-CCDIV.width-10, windowHeight-CCDIV.height-10);
+  CCDIV.position(windowWidth - CCDIV.width - 10, windowHeight - CCDIV.height - 10);
   loadColors();
   backC = color(51);
+}
+
+function mouseReleased() {
+  if (mouse().mag() < size*2) {
+    var h1 = mouse().heading();
+    var h2 = pmouse().heading();
+    var mag = h1 - h2;
+    mag = constrain(mag, -0.5, 0.5);
+    theta = mag;
+  }
 }
 
 function draw() {
@@ -56,10 +67,9 @@ function draw() {
     backC = lerpColor(backC, prevC, .04);
   }
 
-  if (backC);
-  {
+  if (backC); {
     backC.setAlpha(200);
-  background(backC);
+    background(backC);
   }
   translate(width / 2, height / 2);
   stroke(255);
@@ -71,15 +81,23 @@ function draw() {
     if (mouse().mag() < size * 2) {
       current = angleLerp(current, mouse().heading() + (TWO_PI), .25);
       current %= TWO_PI;
-      theta = mouse().heading();
+      // theta = mouse().heading();
     }
 
   }
-    // current += constrain(radians(theta - current), -QUARTER_PI / 4, QUARTER_PI / 4);
-    current += theta;
-    theta *= .99
-    if (theta < 0.001 && theta > -0.001) theta = 0;
-    current %= TWO_PI;
+  // current += constrain(radians(theta - current), -QUARTER_PI / 4, QUARTER_PI / 4);
+  current += theta;
+  
+  theta *= .99
+  
+  if (theta < 0.001 && theta > -0.001) {theta = 0; spinning = false}
+  
+  if (current > TWO_PI) {
+    current -= TWO_PI;
+  }
+  if (current < 0) {
+    current += TWO_PI;
+  }
 
 
   if (similar(current, theta, .01)) {
