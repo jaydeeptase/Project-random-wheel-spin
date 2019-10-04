@@ -18,7 +18,7 @@ const mouse = () => createVector(mouseX - width / 2, mouseY - height / 2);
 const pmouse = () => createVector(pmouseX - width / 2, pmouseY - height / 2);
 
 function preload() {
-  data = loadJSON("assets/data.json", (j) => total = min(10, Number(j.length)));
+  data = loadJSON("assets/data.json", (j)=>total=min(10, Number(j.length)));
 }
 
 
@@ -95,7 +95,7 @@ function draw() {
   
   if (theta < 0.001 && theta > -0.001) {theta = 0; spinning = false}
   
-  current %= TWO_PI;
+  current = (current+TWO_PI)%TWO_PI;
 
 
   if (similar(current, theta, .01)) {
@@ -172,7 +172,7 @@ function drawArcs() {
     push();
     textAlign(CENTER, CENTER);
     rotate(-QUARTER_PI);
-    let txt = numbers[i];
+    let txt = data[i].Original_Challenge;
     let n = 0;
     if (typeof(txt) == 'string') {
       n = txt.length * 2 + (txtSize) + 2;
@@ -181,20 +181,24 @@ function drawArcs() {
     // print(txt.length);
 
     rotate(sectionSize / 2);
-    translate(size * 1.6 + n, size * 1.6 + n);
-    rotate(-QUARTER_PI);
-    rotate(PI);
-    rotate(HALF_PI);
+    translate(size * 1.35 + n, size * 1.6 + n);
+    rotate(-t);
+    rotate(QUARTER_PI/1.9);
+    // rotate(-QUARTER_PI);
+    // rotate(PI);
+    // rotate(HALF_PI);
     // rotate(t);
     stroke(0);
-    strokeWeight(sw);
+    strokeWeight(sw/2);
     fill(255);
-
+// noStroke();
     text(txt, 0, 0);
     pop();
     fill(c);
     stroke(strokeCol);
+    
     strokeWeight(astroke);
+    
     arc(0, 0, thisSize * 4, thisSize * 4, 0, sectionSize, PIE);
     pop();
   }
