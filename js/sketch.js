@@ -48,7 +48,7 @@ function setup() {
     (numbers.splice(selectedIndex, 1)[0]);
     sectionSize = (TWO_PI / total);
     loadColors();
-  }).addClass("button").position(20, windowHeight - 70);;
+  }).addClass("button").position(20, windowHeight - 110);;
   CCDIV = createDiv("copy of <a href = 'http://shiffman.github.io/randomizer/spin/index.html?id=-Lpud6LpelY04t5yqzny' target=_blank>Class Randomizer</a> by Dan Shiffman")
   CCDIV.position(windowWidth - CCDIV.width - 10, windowHeight - CCDIV.height - 10);
   loadColors();
